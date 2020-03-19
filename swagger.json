@@ -1,0 +1,186 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Esse é um desafio proposto pela empresa EyeMobile para avaliar o desempenho do desenvolvedor Odilon do Carmo.\nSe trata de alguns endpoints para realizar vendas e consultar extratos e saldos disponíveis.",
+    "version": "1.0.0",
+    "title": "Payment Simulator",
+    "contact": {
+      "email": "odilonfdocarmo@gmail.com"
+    }
+  },
+  "host": "localhost:3333",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Terminal",
+      "description": "Ações realizadas pelo terminal",
+      "externalDocs": {
+        "description": "Saiba mais",
+        "url": "https://github.com/odilondocarmo/payment_simulator"
+      }
+    },
+    {
+      "name": "Portal",
+      "description": "Ações realizadas pelo usuário/portal",
+      "externalDocs": {
+        "description": "Saiba mais",
+        "url": "https://github.com/odilondocarmo/payment_simulator"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/pagamento": {
+      "post": {
+        "tags": [
+          "Terminal"
+        ],
+        "summary": "Realiza uma venda pelo terminal",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "JSON para a venda deve ser adicionado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pagamento"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "200": {
+            "description": "Venda realizada com sucesso."
+          }
+        },
+        "security": [
+          {
+            "terminal_auth": []
+          }
+        ]
+      }
+    },
+    "/consulta": {
+      "get": {
+        "tags": [
+          "Portal"
+        ],
+        "summary": "Realiza uma consulta pelo portal",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "200": {
+            "description": "Consulta realizada com sucesso."
+          }
+        },
+        "security": [
+          {
+            "terminal_auth": []
+          }
+        ]
+      }
+    },
+    "/extrato": {
+      "get": {
+        "tags": [
+          "Portal"
+        ],
+        "summary": "Realiza uma consulta de extrato pelo portal",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "200": {
+            "description": "Consulta de extrato realizada com sucesso."
+          }
+        },
+        "security": [
+          {
+            "terminal_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "terminal_auth": {
+      "type": "basic"
+    }
+  },
+  "responses": {
+    "UnauthorizedError": {
+      "description": "Autenticação inválida ou ausente.",
+      "headers": {
+        "WWW_Authenticate": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Pagamento": {
+      "type": "object",
+      "properties": {
+        "nsu": {
+          "type": "string",
+          "description": "Número sequencial único",
+          "example": "123654"
+        },
+        "valor": {
+          "type": "number",
+          "format": "float",
+          "description": "Valor bruto da transação",
+          "example": 79.99
+        },
+        "bandeira": {
+          "type": "string",
+          "description": "Bandeira do cartão do consumidor",
+          "enum": [
+            "VISA",
+            "MASTERCARD",
+            "ELO",
+            "AMEX"
+          ],
+          "exemple": "MASTERCARD"
+        },
+        
+        "modalidade": {
+          "type": "string",
+          "description": "Modalidade utilizada na transação",
+          "enum": [
+            "debito",
+            "credito"
+          ],
+          "exemple": "debito"
+        },
+        "horario": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Horário em que a transação ocorreu",
+          "example": "2019-01-04T12:43:20-03:00"
+        }
+      }
+    }
+  }
+}

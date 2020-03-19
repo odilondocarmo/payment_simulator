@@ -1,12 +1,7 @@
 const Payment = require('../models/Payment');
 const moment = require('moment');
 const yup = require('yup');
-
-function calculateDate(date, days) {
-    const newDate = moment(date).add(days,'days');
-    while(newDate.isoWeekday() === 6 || newDate.isoWeekday() === 7) newDate.add(1,'day');
-    return newDate.format('YYYY-MM-DD');
-}
+const { calculateDate } = require('../utils/Dates');
 
 class PaymentFlowController {
     async index(_, res) {
@@ -51,7 +46,7 @@ class PaymentFlowController {
                     nsu,
                 }
             });
-            if(data) throw {errors: ['nsu aready in system.']};
+            if(data) throw {errors: ['nsu already in the database.']};
             const {modalidade, horario, valor} = body;
             // Aplicando lógicas de crédito e débito para os valores e a data.
             const tax = modalidade === 'credito' ? 0.03 : 0.02;
