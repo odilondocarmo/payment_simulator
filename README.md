@@ -3,22 +3,23 @@
 ---
 ## Teste a API
 
+Um deploy foi realizado no Heroku para testes.
+
 https://desafio-eyemobile.herokuapp.com/ (Documentação SWAGGER)
 
-` GET https://desafio-eyemobile.herokuapp.com/extrato `(Extrato)
+` GET https://desafio-eyemobile.herokuapp.com/extrato ` (Extrato)
 
 ` GET https://desafio-eyemobile.herokuapp.com/consulta ` (Saldo)
 
 ` POST https://desafio-eyemobile.herokuapp.com/pagamento ` (Registro de transação)
 
-
-
-Um deploy foi realizado no Heroku para testes.
-
 ---
 
 ***Iniciar o servidor (local)***
 
+É necessário ter um cluster no mongoDB e atualizar o arquivo env.exemple para .env e editar a variável DB_URI para a URI do cluster mongoDB.
+
+Posteriormente, basta digitar o comando:
 ` node index.js `
 
 ## Recursos
