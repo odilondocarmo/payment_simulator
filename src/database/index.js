@@ -1,16 +1,14 @@
-const Sequelize = require('sequelize');
-const databaseConfig = require('../config/database');
-const Payment = require('../app/models/Payment');
+require('dotenv/config');
 
-class Database {
-    constructor(){
-        this.init();
-    }
+const mongoose = require('mongoose');
 
-    init(){
-        this.connection = new Sequelize(databaseConfig);
-        Payment.init(this.connection);
-    }
-}
 
-module.exports = new Database();
+mongoose.connect(process.env.DB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
+mongoose.Promise = global.Promise;
+
+
+module.exports = mongoose;

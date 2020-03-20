@@ -5,26 +5,39 @@ const { calculateDate } = require('../utils/Dates');
 
 class PaymentFlowController {
     async index(_, res) {
-        const allData = await Payment.findAll({
-            attributes: [
-                'nsu',
-                'valor',
-                'bandeira',
-                'modalidade',
-                'horario',
-                'liquido',
-                'disponivel'
-            ],
-            raw: true,
-        });
-        const extrato = allData.map(el => {
-            const {horario, valor, liquido} = el;
-            el.horario = moment(horario).format();
-            el.valor = Number.parseFloat(valor.toFixed(2));
-            el.liquido = Number.parseFloat(liquido.toFixed(2));
-            return el;
-        })
-        return res.json(extrato);
+        try {
+            const allData = await Payment.find().select(['-_id','-__v']);
+            const extrato = allData.map(el => {
+                let {
+                    nsu,
+                    valor,
+                    liquido,
+                    horario,
+                    disponivel,
+                    modalidade,
+                    bandeira,
+                } = el;
+    
+                horario = moment(horario).format();
+                disponivel = moment(disponivel).format('YYYY-MM-DD');
+                valor = Number.parseFloat(valor.toFixed(2));
+                liquido = Number.parseFloat(liquido.toFixed(2));
+                return {
+                    nsu,
+                    valor,
+                    liquido,
+                    horario,
+                    disponivel,
+                    modalidade,
+                    bandeira,
+                };
+            })
+            return res.json(extrato);
+        }catch(err){
+            return res.json({err: err.message});
+        }
+        
+       
     }
 
     async create(req, res) {
@@ -41,11 +54,7 @@ class PaymentFlowController {
             // Verificando se o NSU já existe no sistema.
             const {nsu} = body;
             await schema.validate(body);
-            const data = await Payment.findOne({
-                where: {
-                    nsu,
-                }
-            });
+            const data = await Payment.findOne({nsu});
             if(data) throw {errors: ['nsu already in the database.']};
             const {modalidade, horario, valor} = body;
             // Aplicando lógicas de crédito e débito para os valores e a data.
@@ -65,7 +74,7 @@ class PaymentFlowController {
         try {
             let disponivel = 0;
             let receber = 0;
-            const dados = await Payment.findAll();
+            const dados = await Payment.find();
             dados.forEach(el => {
                 const {disponivel: dataDisp, liquido} = el;
                 const data = moment(dataDisp);
