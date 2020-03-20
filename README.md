@@ -3,7 +3,15 @@
 ---
 ## Teste a API
 
-https://desafio-eyemobile.herokuapp.com/
+https://desafio-eyemobile.herokuapp.com/ (Documentação SWAGGER)
+
+` GET https://desafio-eyemobile.herokuapp.com/extrato `(Extrato)
+
+` GET https://desafio-eyemobile.herokuapp.com/consulta ` (Saldo)
+
+` POST https://desafio-eyemobile.herokuapp.com/pagamento ` (Registro de transação)
+
+
 
 Um deploy foi realizado no Heroku para testes.
 
