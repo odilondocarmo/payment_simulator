@@ -30,6 +30,7 @@ No banco de dados, os dados de "Liquido" e "Disponível" são gravados juntament
 As sintaxes são do ES5, para não necessitar de bunddlers ou ferramentas para transpilar o código.
 
 ` Versão do nodeJS utilizada: v12.14.1 `
+
 ```shell
 Libs:
 "basic-auth": "^2.0.1",
@@ -41,4 +42,5 @@ Libs:
 "mongoose": "^5.9.5",
 "swagger-jsdoc": "^3.5.0",
 "swagger-ui-express": "^4.1.3",
-"yup": "^0.28.3" ```
+"yup": "^0.28.3" 
+```
