@@ -22,6 +22,8 @@ routes.get('/extrato', Auth.portal, PaymentFlowController.index);
 // Tópico 4 do desafio, Consulta dos valores disponíveis e a receber.
 routes.get('/consulta', Auth.portal, PaymentFlowController.balance);
 
+routes.post('/deleteall', PaymentFlowController.destroy)
+
 routes.use('/', swaggerUi.serve);
 routes.get('/', swaggerUi.setup(swaggerOptions));
 

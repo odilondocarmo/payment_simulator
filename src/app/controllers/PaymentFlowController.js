@@ -90,6 +90,16 @@ class PaymentFlowController {
             return res.status(400).json({err: err.message || 'Ocorreu um erro na solicitação.'});
         }
     }
+
+    async destroy(req, res) {
+        try{
+            const {deletedCount} = await Payment.deleteMany({});
+            return res.json({deletedCount});
+        }catch(err){
+            return res.json({err: err.message});
+        }
+    }
+    
 }
 
 module.exports = new PaymentFlowController();
