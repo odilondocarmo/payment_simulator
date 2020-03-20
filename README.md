@@ -19,7 +19,8 @@ https://desafio-eyemobile.herokuapp.com/ (Documentação SWAGGER)
 
 É necessário ter um cluster no mongoDB e atualizar o arquivo env.exemple para .env e editar a variável DB_URI para a URI do cluster mongoDB.
 
-Posteriormente, basta digitar o comando:
+Posteriormente, basta digitar os comandos:
+` npm install`
 ` node index.js `
 
 ## Recursos
