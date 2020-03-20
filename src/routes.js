@@ -12,8 +12,6 @@ const routes = new Router();
 routes.use(cors());
 routes.use(json());
 
-
-
 routes.post('/pagamento',Auth.terminal, PaymentFlowController.create);
 
 // Tópico 3 do desafio, Extrato, contendo detalhamento de todas as transações
