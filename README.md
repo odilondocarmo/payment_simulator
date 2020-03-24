@@ -5,11 +5,22 @@
 
 Um deploy foi realizado no Heroku para testes.
 
+
+
 https://desafio-eyemobile.herokuapp.com/ (Documentação SWAGGER)
+
+
+Autenticação:
+portal
+123456
 
 ` GET https://desafio-eyemobile.herokuapp.com/extrato ` (Extrato)
 
 ` GET https://desafio-eyemobile.herokuapp.com/consulta ` (Saldo)
+
+Autenticação:
+terminal
+123456
 
 ` POST https://desafio-eyemobile.herokuapp.com/pagamento ` (Registro de transação)
 
